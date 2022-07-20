@@ -1,9 +1,15 @@
-import express from "express";
-import cors from "cors";
-import { readdirSync } from "fs";
-import mongoose from "mongoose";
-import csrf from "csurf";
-import cookieParser from "cookie-parser";
+//import express from "express";
+const express = require("express");
+//import cors from "cors";
+const cors = require("cors");
+//import { readdirSync } from "fs";
+const { readdirSync } = require("fs");
+//import mongoose from "mongoose";
+const mongoose = require("mongoose");
+//import csrf from "csurf";
+const csrf = require("csurf");
+//import cookieParser from "cookie-parser";
+const cookieParser = require("cookie-parser");
 
 const morgan = require("morgan");
 require("dotenv").config();
