@@ -1,15 +1,14 @@
-//import express from "express";
-import express, { json } from "express";
+import express from "express";
 //import cors from "cors";
 import cors from "cors";
 //import { readdirSync } from "fs";
 import { readdirSync } from "fs";
-//import mongoose from "mongoose";
-import { connect } from "mongoose";
+import mongoose from "mongoose";
 //import csrf from "csurf";
 import csrf from "csurf";
 //import cookieParser from "cookie-parser";
 import cookieParser from "cookie-parser";
+
 import dotenv from 'dotenv'
 import weird from `./routes/${r}`
 
