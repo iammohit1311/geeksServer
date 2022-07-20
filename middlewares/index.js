@@ -6,13 +6,13 @@ const expressJwt = require("express-jwt");
 const User = require("../models/user");
 const Course = require("../models/course");
 
-export const requireSignin = expressJwt({
+module.exports.requireSignin = expressJwt({
   getToken: (req, res) => req.cookies.token,
   secret: process.env.JWT_SECRET,
   algorithms: ["HS256"],
 });
 
-export const isInstructor = async (req, res, next) => {
+module.exports.isInstructor = async (req, res, next) => {
   try {
     const user = await User.findById(req.user._id).exec();
     if (!user.role.includes("Instructor")) return res.sendStatus(403);
@@ -22,7 +22,7 @@ export const isInstructor = async (req, res, next) => {
   }
 };
 
-export const isEnrolled = async (req, res, next) => {
+module.exports.isEnrolled = async (req, res, next) => {
   try {
     const user = await User.findById(req.user._id).exec();
     const course = await Course.findOne({ slug: req.params.slug }).exec();

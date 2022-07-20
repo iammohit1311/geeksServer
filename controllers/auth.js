@@ -19,7 +19,7 @@ const awsConfig = {
 
 const SES = new AWS.SES(awsConfig);
 
-export const register = async (req, res) => {
+module.exports.register = async (req, res) => {
   try {
     //console.log(req.body);
     const { name, email, password } = req.body;
@@ -52,7 +52,7 @@ export const register = async (req, res) => {
   }
 };
 
-export const login = async (req, res) => {
+module.exports.login = async (req, res) => {
   try {
     //console.log(req.body);
     const { email, password } = req.body;
@@ -80,7 +80,7 @@ export const login = async (req, res) => {
   }
 };
 
-export const logout = async (req, res) => {
+module.exports.logout = async (req, res) => {
   try {
     res.clearCookie("token");
     return res.json({ message: "Signout success" });
@@ -89,7 +89,7 @@ export const logout = async (req, res) => {
   }
 };
 
-export const currentUser = async (req, res) => {
+module.exports.currentUser = async (req, res) => {
   try {
     const user = await User.findById(req.user._id).select("-password").exec();
     return res.json({ ok: true });
@@ -98,7 +98,7 @@ export const currentUser = async (req, res) => {
   }
 };
 
-export const forgotPassword = async (req, res) => {
+module.exports.forgotPassword = async (req, res) => {
   try {
     const { email } = req.body;
     //console.log(email);
@@ -150,7 +150,7 @@ export const forgotPassword = async (req, res) => {
   }
 };
 
-export const resetPassword = async (req, res) => {
+module.exports.resetPassword = async (req, res) => {
   try {
     const { email, code, newPassword } = req.body;
     //console.table({ email, code, newPassword });

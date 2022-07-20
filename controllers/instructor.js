@@ -6,7 +6,7 @@ const Course = require("../models/course");
 const queryString = require("query-string");
 const stripe = require("stripe")(process.env.STRIPE_SECRET);
 
-export const makeInstructor = async (req, res) => {
+module.exports.makeInstructor = async (req, res) => {
   try {
     // 1. find user from db
     const user = await User.findById(req.user._id).exec();
@@ -36,7 +36,7 @@ export const makeInstructor = async (req, res) => {
   }
 };
 
-export const getAccountStatus = async (req, res) => {
+module.exports.getAccountStatus = async (req, res) => {
   try {
     const user = await User.findById(req.user._id).exec();
     const account = await stripe.accounts.retrieve(user.stripe_account_id);
@@ -61,7 +61,7 @@ export const getAccountStatus = async (req, res) => {
   }
 };
 
-export const currentInstructor = async (req, res) => {
+module.exports.currentInstructor = async (req, res) => {
   try {
     let user = await User.findById(req.user._id).select("-password").exec();
     // console.log("CURRENT INSTRUCTOR => ", user);
@@ -75,7 +75,7 @@ export const currentInstructor = async (req, res) => {
   }
 };
 
-export const instructorCourses = async (req, res) => {
+module.exports.instructorCourses = async (req, res) => {
   try {
     const courses = await Course.find({ instructor: req.user._id })
       .sort({ createdAt: -1 })
@@ -86,7 +86,7 @@ export const instructorCourses = async (req, res) => {
   }
 };
 
-export const studentCount = async (req, res) => {
+module.exports.studentCount = async (req, res) => {
   try {
     const users = await User.find({ courses: req.body.courseId })
       .select("_id")
@@ -97,7 +97,7 @@ export const studentCount = async (req, res) => {
   }
 };
 
-export const instructorBalance = async (req, res) => {
+module.exports.instructorBalance = async (req, res) => {
   try {
     let user = await User.findById(req.user._id).exec();
     const balance = await stripe.balance.retrieve({
@@ -109,7 +109,7 @@ export const instructorBalance = async (req, res) => {
   }
 };
 
-export const instructorPayoutSettings = async (req, res) => {
+module.exports.instructorPayoutSettings = async (req, res) => {
   try {
     const user = await User.findById(req.user._id).exec();
     const loginLink = await stripe.accounts.createLoginLink(

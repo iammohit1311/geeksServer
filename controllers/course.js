@@ -23,7 +23,7 @@ const awsConfig = {
 
 const S3 = new AWS.S3(awsConfig);
 
-export const uploadImage = async (req, res) => {
+module.exports.uploadImage = async (req, res) => {
   // console.log(req.body);
   try {
     const { image } = req.body;
@@ -61,7 +61,7 @@ export const uploadImage = async (req, res) => {
   }
 };
 
-export const removeImage = async (req, res) => {
+module.exports.removeImage = async (req, res) => {
   try {
     const { image } = req.body;
     // image params
@@ -83,7 +83,7 @@ export const removeImage = async (req, res) => {
   }
 };
 
-export const create = async (req, res) => {
+module.exports.create = async (req, res) => {
   // console.log("CREATE COURSE", req.body);
   // return;
   try {
@@ -105,7 +105,7 @@ export const create = async (req, res) => {
   }
 };
 
-export const read = async (req, res) => {
+module.exports.read = async (req, res) => {
   try {
     const course = await Course.findOne({ slug: req.params.slug })
       .populate("instructor", "_id name")
@@ -116,7 +116,7 @@ export const read = async (req, res) => {
   }
 };
 
-export const uploadVideo = async (req, res) => {
+module.exports.uploadVideo = async (req, res) => {
   try {
     // console.log("req.user._id", req.user._id);
     // console.log("req.params.instructorId", req.params.instructorId);
@@ -151,7 +151,7 @@ export const uploadVideo = async (req, res) => {
   }
 };
 
-export const removeVideo = async (req, res) => {
+module.exports.removeVideo = async (req, res) => {
   try {
     if (req.user._id != req.params.instructorId) {
       return res.status(400).send("Unauthorized");
@@ -180,7 +180,7 @@ export const removeVideo = async (req, res) => {
   }
 };
 
-export const addLesson = async (req, res) => {
+module.exports.addLesson = async (req, res) => {
   try {
     const { slug, instructorId } = req.params;
     const { title, content, video } = req.body;
@@ -205,7 +205,7 @@ export const addLesson = async (req, res) => {
   }
 };
 
-export const update = async (req, res) => {
+module.exports.update = async (req, res) => {
   try {
     const { slug } = req.params;
     // console.log(slug);
@@ -226,7 +226,7 @@ export const update = async (req, res) => {
   }
 };
 
-export const removeLesson = async (req, res) => {
+module.exports.removeLesson = async (req, res) => {
   const { slug, lessonId } = req.params;
   const course = await Course.findOne({ slug }).exec();
   if (req.user._id != course.instructor) {
@@ -240,7 +240,7 @@ export const removeLesson = async (req, res) => {
   res.json({ ok: true });
 };
 
-export const updateLesson = async (req, res) => {
+module.exports.updateLesson = async (req, res) => {
   try {
     // console.log("UPDATE LESSON", req.body);
     const { slug } = req.params;
@@ -271,7 +271,7 @@ export const updateLesson = async (req, res) => {
   }
 };
 
-export const publishCourse = async (req, res) => {
+module.exports.publishCourse = async (req, res) => {
   try {
     const { courseId } = req.params;
     const course = await Course.findById(courseId).select("instructor").exec();
@@ -292,7 +292,7 @@ export const publishCourse = async (req, res) => {
   }
 };
 
-export const unpublishCourse = async (req, res) => {
+module.exports.unpublishCourse = async (req, res) => {
   try {
     const { courseId } = req.params;
     const course = await Course.findById(courseId).select("instructor").exec();
@@ -313,14 +313,14 @@ export const unpublishCourse = async (req, res) => {
   }
 };
 
-export const courses = async (req, res) => {
+module.exports.courses = async (req, res) => {
   const all = await Course.find({ published: true })
     .populate("instructor", "_id name")
     .exec();
   res.json(all);
 };
 
-export const checkEnrollment = async (req, res) => {
+module.exports.checkEnrollment = async (req, res) => {
   const { courseId } = req.params;
   // find courses of the currently logged in user
   const user = await User.findById(req.user._id).exec();
@@ -336,7 +336,7 @@ export const checkEnrollment = async (req, res) => {
   });
 };
 
-export const freeEnrollment = async (req, res) => {
+module.exports.freeEnrollment = async (req, res) => {
   try {
     // check if course is free or paid
     const course = await Course.findById(req.params.courseId).exec();
@@ -360,7 +360,7 @@ export const freeEnrollment = async (req, res) => {
   }
 };
 
-export const paidEnrollment = async (req, res) => {
+module.exports.paidEnrollment = async (req, res) => {
   try {
     // check if course is free or paid
     const course = await Course.findById(req.params.courseId)
@@ -404,7 +404,7 @@ export const paidEnrollment = async (req, res) => {
   }
 };
 
-export const stripeSuccess = async (req, res) => {
+module.exports.stripeSuccess = async (req, res) => {
   try {
     // find course
     const course = await Course.findById(req.params.courseId).exec();
@@ -431,7 +431,7 @@ export const stripeSuccess = async (req, res) => {
   }
 };
 
-export const userCourses = async (req, res) => {
+module.exports.userCourses = async (req, res) => {
   const user = await User.findById(req.user._id).exec();
   const courses = await Course.find({ _id: { $in: user.courses } })
     .populate("instructor", "_id name")
@@ -439,7 +439,7 @@ export const userCourses = async (req, res) => {
   res.json(courses);
 };
 
-export const markCompleted = async (req, res) => {
+module.exports.markCompleted = async (req, res) => {
   const { courseId, lessonId } = req.body;
   // console.log(courseId, lessonId);
   // find if user with that course is already created
@@ -471,7 +471,7 @@ export const markCompleted = async (req, res) => {
   }
 };
 
-export const listCompleted = async (req, res) => {
+module.exports.listCompleted = async (req, res) => {
   try {
     const list = await Completed.findOne({
       user: req.user._id,
@@ -483,7 +483,7 @@ export const listCompleted = async (req, res) => {
   }
 };
 
-export const markIncomplete = async (req, res) => {
+module.exports.markIncomplete = async (req, res) => {
   try {
     const { courseId, lessonId } = req.body;
 
