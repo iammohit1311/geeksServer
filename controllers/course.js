@@ -1,11 +1,17 @@
-import AWS from "aws-sdk";
-import { nanoid } from "nanoid";
-import Course from "../models/course";
-import Completed from "../models/completed";
-import sllugify from "slugify";
-import slugify from "slugify";
-import { readFileSync } from "fs";
-import User from "../models/user";
+//import AWS from "aws-sdk";
+const AWS = require("aws-sdk");
+//import { nanoid } from "nanoid";
+const { nanoid } = require("nanoid");
+//import Course from "../models/course";
+const Course = require("../models/course");
+//import Completed from "../models/completed";
+const Completed = require("../models/completed");
+//import slugify from "slugify";
+const slugify = require("slugify");
+//import { readFileSync } from "fs";
+const { readFileSync } = require("fs");
+//import User from "../models/user";
+const User = require("../models/user");
 const stripe = require("stripe")(process.env.STRIPE_SECRET);
 
 const awsConfig = {

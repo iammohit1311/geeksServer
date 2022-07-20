@@ -1,8 +1,14 @@
-import User from "../models/user";
-import { hashPassword, comparePassword } from "../utils/auth";
-import jwt from "jsonwebtoken";
-import { nanoid } from "nanoid";
-import AWS from "aws-sdk";
+//import User from "../models/user";
+//import { hashPassword, comparePassword } from "../utils/auth";
+//import jwt from "jsonwebtoken";
+//import { nanoid } from "nanoid";
+//import AWS from "aws-sdk";
+
+const User = require("../models/user");
+const { hashPassword, comparePassword } = require("../utils/auth");
+const jwt = require("jsonwebtoken");
+const { nanoid } = require("nanoid");
+const AWS = require("aws-sdk");
 
 const awsConfig = {
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,

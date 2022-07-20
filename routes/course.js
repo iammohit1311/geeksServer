@@ -1,13 +1,15 @@
-import express from "express";
-import formidable from "express-formidable";
+//import express from "express";
+//import formidable from "express-formidable";
+const express = require("express");
+const formidable = require("express-formidable");
 
 const router = express.Router();
 
 // middleware
-import { requireSignin, isInstructor, isEnrolled } from "../middlewares";
+const { requireSignin, isInstructor, isEnrolled } = require("../middlewares");
 
 // controllers
-import {
+const {
   uploadImage,
   removeImage,
   create,
@@ -29,7 +31,7 @@ import {
   markCompleted,
   listCompleted,
   markIncomplete,
-} from "../controllers/course";
+} = require("../controllers/course");
 
 router.get("/courses", courses);
 // image
