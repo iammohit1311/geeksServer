@@ -17,4 +17,4 @@ const completedSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model("Completed", completedSchema);
+module.exports.mongoose.model("Completed", completedSchema);
