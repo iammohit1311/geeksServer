@@ -40,7 +40,7 @@ readdirSync("./routes").map((r) => app.use("/api", require(`./routes/${r}`)));
 app.use(csrfProtection);
 
 app.get("/api/csrf-token", (req, res) => {
-  res.send({ csrfToken: req.csrfToken() });
+  res.json({ csrfToken: req.csrfToken() });
 });
 
 //port
