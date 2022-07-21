@@ -10,7 +10,7 @@ const mongoose = require("mongoose");
 const csrf = require("csurf");
 //import cookieParser from "cookie-parser";
 const cookieParser = require("cookie-parser");
-app.use(csrfProtection);
+
 const morgan = require("morgan");
 require("dotenv").config();
 
@@ -18,7 +18,7 @@ const csrfProtection = csrf({ cookie: true });
 
 //create express
 const app = express();
-
+app.use(csrfProtection);
 //db
 mongoose
   .connect(process.env.DATABASE, {
