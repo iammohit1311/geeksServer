@@ -38,7 +38,7 @@ app.use(morgan("dev"));
 readdirSync("./routes").map((r) => app.use("/api", require(`./routes/${r}`)));
 //csrf
 app.use(csrfProtection);
-app.get("/api/csrf-token", (req, res) => {
+app.get("http://shiv1311.herokuapp.com/api/csrf-token", (req, res) => {
   res.json({ csrfToken: req.csrfToken() });
 });
 
