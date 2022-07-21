@@ -10,7 +10,7 @@ const mongoose = require("mongoose");
 const csrf = require("csurf");
 //import cookieParser from "cookie-parser";
 const cookieParser = require("cookie-parser");
-
+app.use(csrfProtection);
 const morgan = require("morgan");
 require("dotenv").config();
 
@@ -37,7 +37,6 @@ app.use(morgan("dev"));
 //route
 readdirSync("./routes").map((r) => app.use("/api", require(`./routes/${r}`)));
 //csrf
-app.use(csrfProtection);
 
 app.get("/api/csrf-token", (req, res) => {
   res.json({ csrfToken: req.csrfToken() });
