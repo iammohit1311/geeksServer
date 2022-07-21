@@ -37,9 +37,9 @@ app.use(morgan("dev"));
 //route
 readdirSync("./routes").map((r) => app.use("/api", require(`./routes/${r}`)));
 //csrf
-//app.use(csrfProtection);
-app.get("/api/csrf-token", csrfProtection, (req, res) => {
-  res.render("send", { csrfToken: req.csrfToken() });
+app.use(csrfProtection);
+app.get("/api/csrf-token", (req, res) => {
+  res.json({ csrfToken: req.csrfToken() });
 });
 
 //port
