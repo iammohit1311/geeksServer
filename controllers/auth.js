@@ -69,9 +69,11 @@ module.exports.login = async (req, res) => {
     // return user and token to client
     user.password = undefined;
     // send token in cookie
+    console.log("hiiiiiiii");
     res.cookie("token", token, {
       httpOnly: true,
     });
+    console.log("byeeeee");
     // send user as json response
     res.json(user);
   } catch (err) {
